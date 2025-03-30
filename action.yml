@@ -27,5 +27,5 @@ runs:
         ./flux-helpers bump \
           --file "${{ inputs.file }}" \
           $(echo "${{ inputs.set }}" | awk '{print "--set " $0}') \
-          --dry-run=${{ inputs.dry-run }}
+          --dry-run='${{ inputs.dry-run }}'
       shell: bash
