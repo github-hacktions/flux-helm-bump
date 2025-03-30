@@ -1,0 +1,30 @@
+# .github/actions/bump-image/action.yml
+name: "Flux Image Tag Bumper"
+description: "Updates image tags in Flux HelmRelease YAMLs using flux-helpers CLI"
+inputs:
+  file:
+    description: "Path to the HelmRelease YAML file"
+    required: true
+  set:
+    description: "Image update(s) in the form repo=version (newline-separated)"
+    required: true
+  dry-run:
+    description: "Set to true to preview changes"
+    required: false
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Download CLI
+      run: |
+        curl -sL https://github.com/pat-nel87/flux-helpers/releases/latest/download/flux-helpers -o flux-helpers
+        chmod +x flux-helpers
+
+    - name: Run tag bump
+      run: |
+        ./flux-helpers bump \
+          --file "${{ inputs.file }}" \
+          $(echo "${{ inputs.set }}" | awk '{print "--set " $0}') \
+          --dry-run=${{ inputs.dry-run }}
+      shell: bash
