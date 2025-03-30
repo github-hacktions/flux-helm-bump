@@ -32,5 +32,6 @@ runs:
         echo "🔍 dry-run flag = $DRY_RUN"
 
         SET_ARGS=$(echo "$SET_INPUT" | while read -r line; do echo "--set $line"; done)
-        ./flux-helpers bump --file "$FILE" $SET_ARGS --dry-run=$DRY_RUN
+        ./flux-helpers bump --file "$FILE" $SET_ARGS \
+        --dry-run=$DRY_RUN
       shell: bash
