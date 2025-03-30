@@ -11,6 +11,7 @@ inputs:
   dry-run:
     description: "Set to true to preview changes"
     required: false
+    type: bool
     default: "false"
 
 runs:
@@ -26,7 +27,7 @@ runs:
       run: |
         FILE="${{ inputs.file }}"
         SET_INPUT="${{ inputs.set }}"
-        DRY_RUN="${{ inputs.dry-run }}"
+        DRY_RUN=${{ inputs.dry-run }}
 
         echo "🔍 dry-run flag = $DRY_RUN"
 
