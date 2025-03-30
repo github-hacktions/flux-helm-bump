@@ -24,8 +24,16 @@ runs:
 
     - name: Run tag bump
       run: |
+        FILE="${{ inputs.file }}"
+        SET_INPUT="${{ inputs.set }}"
+        DRY_RUN="${{ inputs.dry-run }}"
+
+        echo "🔍 dry-run flag = $DRY_RUN"
+
+        SET_ARGS=$(echo "$SET_INPUT" | while read -r line; do echo "--set $line"; done)
+
         ./flux-helpers bump \
-          --file "${{ inputs.file }}" \
-          $(echo "${{ inputs.set }}" | awk '{print "--set " $0}') \
-          --dry-run='${{ inputs.dry-run }}'
+          --file "$FILE" \
+          $SET_ARGS \
+          --dry-run=$DRY_RUN
       shell: bash
