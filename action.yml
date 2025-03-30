@@ -35,5 +35,6 @@ runs:
           [[ -z "$line" || "$line" =~ ^-- ]] && continue
           echo --set "$line"
         done)
-        ./flux-helpers bump --file "$FILE" $SET_ARGS 
+        ./flux-helpers bump --file "$FILE" $SET_ARGS \
+        --dry-run=$DRY_RUN
       shell: bash
