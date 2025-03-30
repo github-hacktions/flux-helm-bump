@@ -23,7 +23,6 @@ runs:
         chmod +x flux-helpers
 
     - name: Run tag bump
-      shell: bash
       run: |
         ./flux-helpers bump \
           --file "${{ inputs.file }}" \
